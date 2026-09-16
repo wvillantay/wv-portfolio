@@ -27,8 +27,8 @@ export const profile = {
  */
 export const links = {
   github: 'https://github.com/wvillantay',
-  linkedin: 'https://www.linkedin.com/in/william-villantay-33715b1a7/',
-  // public/resume/William-Villantay-Resume.pdf (= WilliamResume2026.pdf). Opens in a new tab.
+  linkedin: 'https://www.linkedin.com/in/williamvillantay',
+  // public/resume/William-Villantay-Resume.pdf (= WilliamResume2026-Updated.pdf). Opens in a new tab.
   resume: '/resume/William-Villantay-Resume.pdf',
   email: 'williamvillantay@gmail.com',
 }

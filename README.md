@@ -30,7 +30,7 @@ npm run build && npm run preview
 ## Links, project actions and case studies
 
 Everything is driven by `src/data/profile.js`; components only read from it. The facts in it
-come from William's own descriptions and `WilliamResume2026.pdf` (shipped as
+come from William's own descriptions and `WilliamResume2026-Updated.pdf` (shipped as
 `public/resume/William-Villantay-Resume.pdf`) — nothing is invented; a field is `null` rather
 than guessed.
 
