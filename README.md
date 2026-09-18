@@ -76,9 +76,29 @@ than guessed.
   stopped while it is open and the sheet scrolls natively (`data-lenis-prevent`). ESC, the
   close button, "All projects" and the browser back button all close it.
 - Routing: `src/lib/caseStudy.js` mirrors the open study to the URL as `#work/<slug>`
-  (`pushState`), so a case study can be linked to directly and back/forward work. On a fresh
-  load any other hash is stripped (the hero must open at frame 0); a `#work/<slug>` hash is kept
-  and the sheet opens over the hero once the loader has finished.
+  (`pushState`), so a case study can be linked to directly and back/forward work; a `#work/<slug>`
+  hash on a fresh load opens the sheet over the hero once the loader has finished, and closing it
+  restores the section hash the URL had before.
+- Section deep links (`src/lib/hashNav.js`): `/#work`, `/#profile` (alias of the `#about`
+  element — the hero's handoff targets that id and the hero is frozen), `/#stack`, `/#contact`,
+  `/#home`. The hash is captured at the very start of startup (`src/lib/initialHash.js`, the
+  first import in `main.jsx`) and nothing scrolls to 0 when it is a deep link — not `main.jsx`,
+  not `App`. The cold-load landing (`runColdDeepLink`) is idempotent and gated, in order, on: the
+  loader being gone, Lenis existing and started, the hero pin measured (`whenSiteReady`),
+  `ScrollTrigger.refresh()` with the final layout, and the target having a real, reachable
+  layout position; it then jumps (offset by the fixed nav; the profile sheet lands exactly where
+  its handoff over the hero completes) and verifies on the next frame, +300 ms and +1200 ms,
+  correcting once if the section drifted more than 4 px — but only while the visitor has not
+  interacted, so it never fights real scrolling. Loads without a hash keep the manual
+  scroll-restoration behaviour and open on the hero at 0; unknown hashes are stripped. Same-page
+  hash links (nav, hero CTAs, contact) are handled here rather than by Lenis' `anchors`: they ease
+  with Lenis and push the hash, so back/forward move between sections (the browser's own fragment
+  jump on traversal is undone and re-eased; leaving a case study via back never re-scrolls).
+- Verifying which build is live: in DevTools, `document.documentElement.dataset.build` prints the
+  build stamp (`BUILD` in `src/lib/initialHash.js`, currently `2026-09-18-v9.1-deeplink`) and,
+  after a deep-linked load, `window.__wvDeepLink` reports `{ id, landed, corrections }`. If the
+  stamp is missing the deployment is running an older bundle (check that new files under `src/lib/`
+  were committed — a failed Vercel build keeps the previous deployment live).
 
 The sequence in `public/sequence/` is the **real hero turn** (v3): 119 transparent RGBA WebP
 frames cut from the generated `360 video.mp4` (raw frames 0–118, played in reverse), so scroll

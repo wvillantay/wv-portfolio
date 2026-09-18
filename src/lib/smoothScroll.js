@@ -14,7 +14,7 @@ export function initSmoothScroll() {
     lerp: reduce ? 1 : 0.09,
     wheelMultiplier: 1,
     smoothWheel: !reduce,
-    anchors: { offset: 0 },
+    anchors: false, // same-page hash links are handled by src/lib/hashNav.js (offset + URL hash)
   })
   lenis.on('scroll', ScrollTrigger.update)
   gsap.ticker.add((time) => lenis.raf(time * 1000))

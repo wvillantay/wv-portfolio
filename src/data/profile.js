@@ -57,7 +57,7 @@ export const education = [
 
 export const nav = [
   { label: 'Home', href: '#home' },
-  { label: 'Profile', href: '#about' },
+  { label: 'Profile', href: '#profile' }, // resolves to the #about section (see src/lib/hashNav.js)
   { label: 'Stack', href: '#stack' },
   { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },
